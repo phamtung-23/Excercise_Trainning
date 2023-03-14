@@ -14,19 +14,45 @@
 <body>
   <div class="container">
     <h3 class="text-center">Vẽ Tam Giác</h3>
+    <form method="POST">
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Số tầng:</label>
+        <div class="col-sm-10">
+          <input type="number" name="number" class="form-control" id="inputEmail3" placeholder="Nhập số tầng của tam giác...">
+        </div>
+      </div>
+      <!-- <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+        </div>
+      </div> -->
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submot" class="btn btn-success">Nhập</button>
+        </div>
+      </div>
+    </form>
     <div class=" w-100 text-center">
       <?php
-       $size = 20; 
-       for ($i = 0; $i < $size; $i++) {
-           for ($j = 0; $j <= $i; $j++) {
-               echo "*";
-           }
-           echo "<br>";
-       }
+        $size = 0;
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          if(isset($_POST["number"]) && $_POST["number"] >= 0){
+            $size = $_POST["number"];
+            for ($i = 0; $i < $size; $i++) {
+                for ($j = 0; $j <= $i; $j++) {
+                    echo "*";
+                }
+                echo "<br>";
+            }
+          }else{
+            echo "Vui lòng không nhập số âm!";
+          }
+        }
       ?>
     </div>
 
-
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
