@@ -14,20 +14,57 @@
 <body>
   <div class="container">
     <h3 class="text-center text-success">Convert String number to number</h3>
+    <form method="POST">
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Nhập chuổi chữ số:</label>
+        <div class="col-sm-10">
+          <input type="text" name="number" class="form-control" id="inputEmail3" placeholder="ví dụ: one;two;four;five">
+        </div>
+      </div>
+      <!-- <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+        </div>
+      </div> -->
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submot" class="btn btn-success">Nhập</button>
+        </div>
+      </div>
+    </form>
     <div class=" w-100 text-center ">
 
 
       <?php
-        function convert( ...$arrayString){
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          if(isset($_POST["number"])){
+            $string = ($_POST["number"]);
+            $arr  = explode(';', $string);
+            // for ($i = 0; $i < $size; $i++) {
+            //     for ($j = 0; $j <= $i; $j++) {
+            //         echo "*";
+            //     }
+            //     echo "<br>";
+            // }
+            convert($arr);
+          }else{
+            echo "Vui lòng không nhập số âm!";
+          }
+        }
+
+        function convert($arrayString){
           $numbers = array("zero"=>0, "one"=>1, "two"=>2, "three"=>3, "four"=>4, "five"=>5, "six"=>6, "seven"=>7, "eight"=>8, "nine"=>9);
           foreach ($arrayString as $stringNumber){
             foreach($numbers as $key => $value){
-              if($stringNumber ==  $key)
+              if(htmlspecialchars(stripslashes(trim($stringNumber))) ==  $key){
                 echo "$value";
+              }
             }
           }
         }
-        convert("one", "two","two","two","two");
+        
       ?>
     </div>
 
