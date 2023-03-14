@@ -13,9 +13,44 @@
 
 <body>
   <div class="container">
-    <h3 class="text-center text-success">Remove duplicate element</h3>
+    <h3 class="text-center text-success">Remove duplicate element of 2 array</h3>
+    <!-- form nhận dữ liệu input -->
+    <form method="POST">
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Nhập chuổi số 1:</label>
+        <div class="col-sm-10">
+          <input type="text" name="string1" class="form-control" id="inputEmail3" placeholder="ví dụ: 1,2,3,4,5">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Nhập chuổi số 2:</label>
+        <div class="col-sm-10">
+          <input type="text" name="string2" class="form-control" id="inputEmail3" placeholder="ví dụ: 1,2,3,4,5">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submot" class="btn btn-success">Thực hiện</button>
+        </div>
+      </div>
+    </form>
     <div class=" w-100 text-center ">
       <?php
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          if(isset($_POST["string2"])&&isset($_POST["string1"])){
+            $string1 = ($_POST["string1"]);
+            $string2 = ($_POST["string2"]);
+            // in input
+            echo "Input 1: ".$string1."</br>";
+            echo "Input 2: ".$string2."</br>";
+            $arr1  = explode(',', $string1);
+            $arr2  = explode(',', $string2);
+            // gọi hàm remove
+            Remove($arr1,$arr2);
+          }else{
+            echo "Vui lòng nhập đầy đủ!";
+          }
+        }
         function Remove( $arr1, $arr2 ) {
 
          $different_element1 =  array_diff($arr1, $arr2);
@@ -24,7 +59,6 @@
          $result = array_merge($different_element1,$different_element2);
          print_r( $result);
         }
-        Remove([1,2,3,4,5], [1,2,3,4,7,8]);
       ?>
     </div>
 
