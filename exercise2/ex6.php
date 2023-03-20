@@ -38,8 +38,15 @@
           if(isset($_POST["temperature"])){
             $stringTemperature = ($_POST["temperature"]);
             echo "Input array: ".$stringTemperature."</br>";
-            $arrTemperature = explode(',', $stringTemperature);
 
+
+            $arrTemperature = explode(',', $stringTemperature);
+            sort($arrTemperature);
+            echo "Array sorted: ";
+            foreach($arrTemperature as $item) {
+              echo "$item ";
+            }
+            echo "</br>";
             if (count($arrTemperature)<5){
               echo "<div class='alert alert-danger'>Please enter more than 5 element!</div>";
             }else{
@@ -52,7 +59,7 @@
               $fiveValueLowest = array_slice($arrTemperature,0,5);
               echo "List five lowest value temperature: ".implode(", ", $fiveValueLowest)."</br>";
                // get 5 elements highest value
-              $fiveValueLowest = array_slice($arrTemperature,count($arrTemperature)-5,count($arrTemperature)-1);
+              $fiveValueLowest = array_slice($arrTemperature,count($arrTemperature)-5,count($arrTemperature));
               echo "List five Highest value temperature: ".implode(", ", $fiveValueLowest);
             }
           }else{

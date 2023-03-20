@@ -14,7 +14,7 @@
 <body>
   <div class="container">
     <h3 class="text-center text-success">Read file</h3>
-      <div class=" w-100 text-center ">
+    <div class=" w-100 text-center ">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -27,28 +27,27 @@
         </thead>
         <tbody>
           <?php
-              $csv_file = fopen('data.csv', 'r');
-              while (($row = fgetcsv($csv_file)) !== false) {
+            $csv_file = fopen('data.csv', 'r');
+
+            while (($row = fgetcsv($csv_file)) !== false) {
+              ?>
+                <tr>
+              <?php
+              foreach ($row as $i){
                 ?>
-                  <tr>
-                <?php
-                foreach ($row as $i){
-                  ?>
-                    <td><?=$i?></td>
-                  <?php
-                }
-                ?>
-                  </tr>
+                  <td><?=$i?></td>
                 <?php
               }
+              ?>
+                </tr>
+              <?php
+            }
 
-              // Close the CSV file
-              fclose($csv_file);
+            fclose($csv_file);
           ?>
         </tbody>
       </table>
-       
-      </div>
+    </div>
   </div>
   <script src="https://code.jquebry.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
