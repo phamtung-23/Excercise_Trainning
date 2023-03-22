@@ -51,6 +51,7 @@
                 $no_character = preg_replace('/[^a-zA-Z0-9 ]/', '', $i);
                 array_push($handleArray, str_replace(' ', '', $no_character));
               }
+              echo "Array after remove special character: ";
               print_r($handleArray);
               
               echo "</br>Number ".$find_item." appears: ".count_values($handleArray,$find_item)." times";
