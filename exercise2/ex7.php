@@ -40,13 +40,20 @@
           if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(isset($_POST["arrayInput"]) && isset($_POST["numberFind"])){
               $stringInput = ($_POST["arrayInput"]);
-              $find_item = $_POST["numberFind"];
+              $find_item = trim($_POST["numberFind"]);
 
               echo "Input array: ".$stringInput."</br>";
 
               $arrInput = explode(',', $stringInput);
               
-              echo "Number ".$find_item." appears: ".count_values($arrInput,$find_item)." times";
+              $handleArray = array();
+              foreach($arrInput as $i){
+                $no_character = preg_replace('/[^a-zA-Z0-9 ]/', '', $i);
+                array_push($handleArray, str_replace(' ', '', $no_character));
+              }
+              print_r($handleArray);
+              
+              echo "</br>Number ".$find_item." appears: ".count_values($handleArray,$find_item)." times";
             }
           }  
 
