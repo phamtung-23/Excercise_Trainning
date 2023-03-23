@@ -215,7 +215,133 @@ DROP COLUMN GHICHU
 -- SELECT * FROM SANPHAM
 
 -- 8.Xoá tất cả dữ liệu khách hàng có năm sinh 1971
-SELECT MAKH FROM KHACHHANG WHERE YEAR(NGSINH) = 1971
-SELECT * FROM HOADON WHERE MAKH = 'KH08'
-DELETE FROM KHACHHANG WHERE YEAR(NGSINH) = 1971
+	-- Do có khóa ngoại nên em xóa tất cả các dữ liệu liên quan đến các MAKH có năm sinh là 1971
+	-- Xóa dữ liệu bảng CTHD
+	DELETE  FROM CTHD WHERE SOHD IN (
+		SELECT SOHD FROM HOADON WHERE MAKH in (
+			SELECT MAKH FROM KHACHHANG WHERE YEAR(NGSINH) = 1971
+			)
+		)
+	--  xóa dữ liệu bảng HOADON	
+	DELETE FROM HOADON WHERE MAKH in (
+			SELECT MAKH FROM KHACHHANG WHERE YEAR(NGSINH) = 1971
+			)
+	-- xóa dữ liệu bảng KHACHHANG
+	DELETE FROM KHACHHANG WHERE YEAR(NGSINH) = 1971
+
+-- 9.Xoá tất cả dữ liệu khách hàng có năm sinh 1971 và năm đăng ký 2006
+	-- Do có khóa ngoại nên em xóa tất cả các dữ liệu liên quan đến các MAKH có năm sinh là 1971 và NGDK = 2006
+	-- Xóa dữ liệu bảng CTHD
+	DELETE  FROM CTHD WHERE SOHD IN (
+		SELECT SOHD FROM HOADON WHERE MAKH in (
+			SELECT MAKH FROM KHACHHANG WHERE YEAR(NGSINH) = 1971 AND YEAR(NGDK) = 2006
+			)
+		)
+	--  xóa dữ liệu bảng HOADON	
+	DELETE FROM HOADON WHERE MAKH in (
+			SELECT MAKH FROM KHACHHANG WHERE YEAR(NGSINH) = 1971 AND YEAR(NGDK) = 2006
+			)
+	-- xóa dữ liệu bảng KHACHHANG
+	DELETE FROM KHACHHANG WHERE YEAR(NGSINH) = 1971 AND YEAR(NGDK) = 2006
+-- 
+
+-- 10. Xoá tất hoá đơn có mã KH = KH01
+	-- Do có khóa ngoại nên em xóa tất cả các dữ liệu liên quan đến các MAKH = 'KH01'
+	-- Xóa dữ liệu bảng CTHD
+	DELETE  FROM CTHD WHERE SOHD IN (
+			SELECT SOHD FROM HOADON WHERE MAKH = 'KH01'
+		)
+	-- Xóa dữ liệu bảng HOADON 	
+	DELETE FROM HOADON WHERE MAKH = 'KH01'
+	
+-- ################################################################################
+
+-- 1. Bài tập thực hành câu lệnh select
+	-- 1.1  In ra danh sách các sản phẩm (MASP,TENSP) do “Trung Quoc” sản xuất.
+	SELECT MASP,TENSP FROM SANPHAM WHERE NUOCSX = 'Trung Quoc'
+	
+	-- 2.In ra danh sách các sản phẩm (MASP, TENSP) có đơn vị tính là “cay”, ”quyen”.
+	SELECT MASP,TENSP FROM SANPHAM WHERE DVT = 'cay' or DVT = 'quyen'
+
+	-- 3. In ra danh sách các sản phẩm (MASP,TENSP) có mã sản phẩm bắt đầu là “B” và kết thúc là “01”.
+	SELECT MASP,TENSP FROM SANPHAM WHERE MASP LIKE 'B%01'
+
+	-- 4.In ra danh sách các sản phẩm (MASP,TENSP) do “Trung Quốc” sản xuất có giá từ 30.000 đến 40.000.
+	SELECT MASP,TENSP FROM SANPHAM WHERE NUOCSX = 'Trung Quoc' AND GIA BETWEEN 30000 and 40000
+	
+	-- 5.	In ra danh sách các sản phẩm (MASP,TENSP) do “Trung Quoc” hoặc “Thai Lan” sản xuất có giá từ 30.000 đến 40.000.
+	SELECT MASP,TENSP FROM SANPHAM WHERE (NUOCSX = 'Trung Quoc' or NUOCSX = 'Thai Lan') AND GIA BETWEEN 30000 and 40000
+	
+	-- 	6. In ra các số hóa đơn, trị giá hóa đơn bán ra trong ngày 1/1/2007 và ngày 2/1/2007.
+		SELECT SOHD, TRIGIA FROM HOADON WHERE NGHD = '2007/1/1' OR NGHD = '2007/1/2'
+		
+	-- 7.In ra các số hóa đơn, trị giá hóa đơn trong tháng 1/2007, sắp xếp theo ngày (tăng dần) và trị giá của hóa đơn (giảm dần).
+		-- 	sắp xếp theo ngày (tăng dần)
+		SELECT SOHD, TRIGIA ,NGHD FROM HOADON WHERE MONTH(NGHD)=1 AND YEAR(NGHD)=2007
+		ORDER BY NGHD ASC;
+		-- 	sắp xếp theo trị giá của hóa đơn (giảm dần)
+		SELECT SOHD, TRIGIA ,NGHD FROM HOADON WHERE MONTH(NGHD)=1 AND YEAR(NGHD)=2007
+		ORDER BY TRIGIA DESC
+		-- sắp xếp theo ngày (tăng dần) và trị giá của hóa đơn (giảm dần).
+		SELECT SOHD, TRIGIA ,NGHD FROM HOADON WHERE MONTH(NGHD)=1 AND YEAR(NGHD)=2007
+		ORDER BY NGHD ASC, TRIGIA DESC;
+
+	-- 8.In ra danh sách các khách hàng (MAKH, HOTEN) đã mua hàng trong ngày 1/1/2007.
+		SELECT MAKH, HOTEN FROM KHACHHANG WHERE MAKH IN (
+			SELECT MAKH FROM HOADON WHERE NGHD = '2007/1/1'
+		)
+	-- 9.In ra số hóa đơn, trị giá các hóa đơn do nhân viên có tên “Nguyen Van B” lập trong ngày 28/10/2006.
+		SELECT SOHD, TRIGIA FROM HOADON WHERE MANV IN (
+			SELECT MANV FROM NHANVIEN WHERE HOTEN = 'Nguyen Van B'
+		) AND NGHD = '2006/10/28'
+		
+	
+	-- 10.In ra danh sách các sản phẩm (MASP,TENSP) được khách hàng có tên “Nguyen Van A” mua trong tháng 10/2006.
+		SELECT MASP, TENSP FROM SANPHAM WHERE MASP IN (
+			SELECT MASP FROM CTHD WHERE SOHD IN (
+				SELECT SOHD FROM HOADON WHERE MANV IN (
+					SELECT MANV FROM NHANVIEN WHERE HOTEN = 'Nguyen Van B'
+				) 
+				AND MONTH(NGHD)=10 AND YEAR(NGHD)=2006
+			)
+		)
+
+-- ################################################################################
+
+-- 2. Các yêu cầu tạo dữ liệu
+	-- 1.Xóa thuộc tính GHICHU trong quan hệ SANPHAM
+		ALTER TABLE SANPHAM
+		DROP COLUMN GHICHU
+	-- 2. Làm thế nào để thuộc tính LOAIKH trong quan hệ KHACHHANG có thể lưu các giá trị là: “Vang lai”, “Thuong xuyen”, “Vip”, … 
+-- 	=> Là đổi kiêu dữ liệu của cột LOAIKH
+		ALTER TABLE KHACHHANG
+		MODIFY COLUMN LOAIKH VARCHAR(100);
+
+	-- 3. Đơn vị tính của sản phẩm chỉ có thể là (“cay”,”hop”,”cai”,”quyen”,”chuc”)
+		ALTER TABLE SANPHAM
+		ADD CONSTRAINT check_DVT CHECK (DVT IN ('cay','hop','cai','quyen','chuc'));
+		
+	-- 4. Giá bán của sản phẩm từ 500 đồng trở lên.
+		ALTER TABLE SANPHAM
+		ADD CONSTRAINT check_GIA CHECK (GIA >= 500);
+	-- 5.Mỗi lần mua hàng, khách hàng phải mua ít nhất 1 sản phẩm.
+
+	-- 6.Ngày khách hàng đăng ký là khách hàng thành viên phải lớn hơn ngày sinh của người đó.
+		ALTER TABLE KHACHHANG 
+		ADD CONSTRAINT check_NGDK CHECK (NGDK > NGSINH);
+		
+	-- 7.Ngày mua hàng (NGHD) của một khách hàng thành viên sẽ lớn hơn hoặc bằng ngày khách hàng đó đăng ký thành viên (NGDK).
+	
+		ALTER TABLE KHACHHANG
+		ADD CONSTRAINT check_NGHD CHECK (NGDK < (SELECT NGHD FROM HOADON, KHACHHANG WHERE HOADON.MAKH = KHACHHANG.MAKH));
+-- 		SELECT NGHD FROM HOADON, KHACHHANG WHERE HOADON.MAKH = KHACHHANG.MAKH
+
+	-- 8.Ngày bán hàng (NGHD) của một nhân viên phải lớn hơn hoặc bằng ngày nhân viên đó vào làm.
+	
+	-- 9.Mỗi một hóa đơn phải có ít nhất một chi tiết hóa đơn.
+	
+	-- 10.Trị giá của một hóa đơn là tổng thành tiền (số lượng*đơn giá) của các chi tiết thuộc hóa đơn đó.
+	
+	-- 11.Doanh số của một khách hàng là tổng trị giá các hóa đơn mà khách hàng thành viên đó đã mua.
+
 
