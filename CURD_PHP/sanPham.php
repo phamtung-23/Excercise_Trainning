@@ -45,24 +45,21 @@
     </div>
   </nav>
   <div class="container-fluid">
-    <h3 class="text-center text-success p-3">DANH SACH KHACH HANG</h3>
+    <h3 class="text-center text-success p-3">DANH SACH SAN PHAM</h3>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Ma KH</th>
-          <th scope="col">Ho ten</th>
-          <th scope="col">Dia chi</th>
-          <th scope="col">SDT</th>
-          <th scope="col">ngay sinh</th>
-          <th scope="col">ngay DK</th>
-          <th scope="col">Doanh so</th>
-          <th scope="col">Loai KH</th>
+          <th scope="col">Ma SP</th>
+          <th scope="col">Ten SP</th>
+          <th scope="col">DVT</th>
+          <th scope="col">Nuoc SX</th>
+          <th scope="col">Gia</th>
           <th scope="col">Cong cu</th>
         </tr>
       </thead>
       <tbody>
         <?php
-          $sql = "select * from KHACHHANG";
+          $sql = "select * from SANPHAM";
           $stm = $conn -> prepare($sql);
           // $stm -> bind_param("s", $otp);
           if (!$stm -> execute()) {
@@ -91,14 +88,11 @@
               while($row = $result->fetch_assoc()) {
                 ?>
                   <tr>
-                    <th scope="row"><?= $row['MAKH']?></th>
-                    <td><?= $row['HOTEN']?></td>
-                    <td><?= $row['DCHI']?></td>
-                    <td><?= $row['SODT']?></td>
-                    <td><?= $row['NGSINH']?></td>
-                    <td><?= $row['NGDK']?></td>
-                    <td><?= $row['DOANHSO']?></td>
-                    <td><?= $row['LOAIKH']?></td>
+                    <th scope="row"><?= $row['MASP']?></th>
+                    <td><?= $row['TENSP']?></td>
+                    <td><?= $row['DVT']?></td>
+                    <td><?= $row['NUOCSX']?></td>
+                    <td><?= $row['GIA']?></td>
                     <td>
                       <button class="btn btn-primary">sửa</button>
                       <button class="btn btn-danger">xóa</button>
