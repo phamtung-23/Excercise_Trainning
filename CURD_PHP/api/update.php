@@ -3,7 +3,9 @@
 
   extract($_POST);
 
+
   if (isset($_POST['id'])&&isset($_POST['name'])&&isset($_POST['diaChi'])&&isset($_POST['sdt'])&&isset($_POST['ngaySinh'])&&isset($_POST['ngayDK'])&&isset($_POST['doanhSo'])&&isset($_POST['typeKH'])){
+    
     $newID = $_POST['id'];
     $newName = $_POST['name'];
     $newDchi = $_POST['diaChi'];
@@ -13,15 +15,19 @@
     $newDS = $_POST['doanhSo'];
     $newLoaiKH = $_POST['typeKH'];
 
-    echo "<script>console.log('$newLoaiKH')</script>";
+    $res = array("status"=>false, "mes" => "");
 
-    $sql = "insert into KHACHHANG values (?,?,?,?,?,?,?,?)";
+    $sql = "update KHACHHANG set HOTEN = ?, DCHI = ?, SODT = ?, NGSINH = ?, NGDK = ?, DOANHSO = ?, LOAIKH = ? where MAKH = ?";
     $stm = $conn -> prepare($sql);
-    $stm -> bind_param("ssssssis", $newID,$newName,$newDchi,$newSDT,$newNgSinh,$newNgDK,$newDS,$newLoaiKH);
+    $stm -> bind_param("sssssiss",$newName,$newDchi,$newSDT,$newNgSinh,$newNgDK,$newDS,$newLoaiKH, $newID);
     if (!$stm -> execute()) {
-      echo 'error';
+      $res["status"] = false;
+      $res["mes"] = "Something wrong!";
+      echo json_encode($res);
     }else{
-      echo 'success';
+      $res["status"] = true;
+      $res["mes"] = "Update successful!";
+      echo json_encode($res);
     }
   }
 ?>

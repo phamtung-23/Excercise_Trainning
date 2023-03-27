@@ -13,7 +13,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <title>Nhan Vien</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 <div class="">
@@ -45,7 +48,10 @@
     </div>
   </nav>
   <div class="container-fluid">
-    <h3 class="text-center text-success p-3">DANH SACH NHAN VIEN</h3>
+    <h3 class="text-center text-success p-3">DANH SÁCH NHÂN VIÊN</h3>
+    <div class="w-100 d-flex justify-content-end">
+      <button class='btn btn-success m-2 btnAddNV' data-toggle="modal" data-target="#exampleModalAdd" ><i class="fas fa-user-plus pr-2"></i> Thêm mới</button>
+    </div>
     <table class="table">
       <thead>
         <tr>
@@ -53,7 +59,7 @@
           <th scope="col">Ho ten</th>
           <th scope="col">SDT</th>
           <th scope="col">ngay vao lam</th>
-          <th scope="col">Cong cu</th>
+          <th scope="col" class="text-center">Cong cu</th>
         </tr>
       </thead>
       <tbody>
@@ -91,9 +97,9 @@
                     <td><?= $row['HOTEN']?></td>
                     <td><?= $row['SODT']?></td>
                     <td><?= $row['NGVL']?></td>
-                    <td>
-                      <button class="btn btn-primary">sửa</button>
-                      <button class="btn btn-danger">xóa</button>
+                    <td class="d-flex justify-content-center">
+                      <button class="btn btn-primary mr-3"><i class="fas fa-edit pr-2"></i> sửa</button>
+                      <button class="btn btn-danger"><i class="fas fa-trash-alt pr-2"></i> xóa</button>
                     </td>
                   </tr>
                 <?php
@@ -108,6 +114,43 @@
 </div>
 
 
+<div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm Khách hàng mới</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Mã Nhân viên:</label>
+            <input type="text" class="form-control" disabled id="NV-id">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Họ tên:</label>
+            <input type="text" class="form-control" id="add-name"></input>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">SDT:</label>
+            <input type="text" class="form-control" id="add-phone"></input>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Ngày vào làm:</label>
+            <input type="date" class="form-control" id="add-birth"></input>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" onclick="addKH()" class="btn btn-primary">Thêm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
   </script>
@@ -117,5 +160,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+  <script src="./js/main.js"></script>
 </body>
 </html>

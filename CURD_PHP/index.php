@@ -50,7 +50,7 @@
   <div class="container-fluid">
     <h3 class="text-center text-success p-3">DANH SÁCH KHÁCH HÀNG</h3>
     <div class="w-100 d-flex justify-content-end">
-      <button class='btn btn-success m-2' data-toggle="modal" data-target="#exampleModalAdd" ><i class="fas fa-user-plus pr-2"></i> Thêm mới</button>
+      <button class='btn btn-success m-2 btnAddKH' data-toggle="modal" data-target="#exampleModalAdd" ><i class="fas fa-user-plus pr-2"></i> Thêm mới</button>
     </div>
     <table class="table">
       <thead>
@@ -91,7 +91,7 @@
                     <td><?= $row['LOAIKH']?></td>
                     <td>
                       <button class="btn btn-primary btnEdit"  data-toggle="modal" data-target="#exampleModal" data-id=<?= $row['MAKH']?>><i class="fas fa-edit pr-2"></i>sửa</button>
-                      <button class="btn btn-danger" onclick="deleteKH('<?= $row['MAKH']?>')"><i class="fas fa-trash-alt pr-2"></i>xóa</button>
+                      <button class="btn btn-danger btnDelete_KH" data-toggle="modal" data-target="#deleteModal" data-id=<?= $row['MAKH']?> ><i class="fas fa-trash-alt pr-2"></i>xóa</button>
                     </td>
                   </tr>
                 <?php
@@ -120,7 +120,7 @@
         <form>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Mã KH:</label>
-            <input type="text" class="form-control" id="add-id">
+            <input type="text" class="form-control" disabled id="add-id">
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Họ tên:</label>
@@ -216,6 +216,30 @@
   </div>
 </div>
 
+
+<!-- model delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xóa?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Khách hàng có mã:</label>
+            <input type="text" id="input_makh" class="form-control" disabled>
+          </div>
+        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-danger" onclick="deleteKH()">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
  
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -228,95 +252,8 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
- <script>
-   $(document).on("click", ".btnEdit", function () {
-     var myBookId = $(this).data('id');
-     $(".modal-body #recipient-id").val( myBookId );
-     getDetail(myBookId);
-     // As pointed out in comments, 
-     // it is unnecessary to have to manually call the modal.
-     // $('#addBookDialog').modal('show');
-});
-
-  function updateKH(){
-    var idKH = $('#recipient-id').val();
-    console.log($('#recipient-id').val());
-
-  }
-
-  function deleteKH(idKH){
-    console.log(idKH);
-  }
-
-  function getDetail(idKH){
-    $.ajax({
-      type:"post",
-      url: "./api/detail.php",
-      data:{
-        id:idKH,
-      },
-      success:(data, status)=>{
-        var userId = JSON.parse(data);
-        $('#input-name').val(userId.HOTEN);
-        $('#input-address').val(userId.DCHI);
-        $('#input-phone').val(userId.SODT);
-        $('#input-birth').val(userId.NGSINH);
-        $('#input-DK').val(userId.NGDK);
-        $('#input-DS').val(userId.DOANHSO);
-        $('#input-typeKH').val(userId.LOAIKH);
-      },
-      
-    })
-  }
-  function addKH(){
-      var newID = $('#add-id').val();
-      var newName = $('#add-name').val();
-      var newDchi= $('#add-address').val();
-      var newSDT = $('#add-phone').val();
-      var newNgSinh = $('#add-birth').val();
-      var newNgDK = $('#add-DK').val();
-      var newDS = $('#add-DS').val();
-      var newLoaiKH = $('#add-typeKH').val();
-
-      
-      $.ajax({
-        type: "post",
-        url: "./api/insert.php",
-        data: {
-          id:newID,
-          name:newName,
-          diaChi:newDchi,
-          sdt:newSDT,
-          ngaySinh:newNgSinh,
-          ngayDK:newNgDK,
-          doanhSo:newDS,
-          typeKH:newLoaiKH,
-        },
-        success: (data, status) =>{
-          if(status=='success'){
-            Swal.fire({
-                      position:top,
-                      icon: 'success',
-                      title: "Add successful!",
-                      showConfirmButton: false,
-                      timer: 1500
-                    }).then(()=>{
-                      location.reload();
-                    })
-          }else{
-            Swal.fire({
-                      position:top,
-                      icon: 'error',
-                      title: "Add failed!",
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
-          }
-        }
-      })
-    }
-
-  </script>
+  
+ <script src="js/main.js"></script>
 
 </body>
 </html>
