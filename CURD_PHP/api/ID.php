@@ -19,6 +19,8 @@
         }
       }
       echo json_encode($res);
+
+
     }else if ($_POST['emp']=="NV"){
       $sql = "select MANV from NHANVIEN";
       $stm = $conn -> prepare($sql);

@@ -56,14 +56,14 @@
       <thead>
         <tr>
           <th scope="col">Ma KH</th>
-          <th scope="col">Ho ten</th>
-          <th scope="col">Dia chi</th>
+          <th scope="col">Họ tên</th>
+          <th scope="col">Địa chỉ</th>
           <th scope="col">SDT</th>
-          <th scope="col">ngay sinh</th>
-          <th scope="col">ngay DK</th>
-          <th scope="col">Doanh so</th>
-          <th scope="col">Loai KH</th>
-          <th scope="col">Cong cu</th>
+          <th scope="col">ngày sinh</th>
+          <th scope="col">ngày  DK</th>
+          <th scope="col">Doanh số</th>
+          <th scope="col">Loại KH</th>
+          <th scope="col">Công cụ</th>
         </tr>
       </thead>
       <tbody>

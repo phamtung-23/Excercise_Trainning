@@ -56,10 +56,10 @@
       <thead>
         <tr>
           <th scope="col">Ma NV</th>
-          <th scope="col">Ho ten</th>
+          <th scope="col">Họ tên</th>
           <th scope="col">SDT</th>
-          <th scope="col">ngay vao lam</th>
-          <th scope="col" class="text-center">Cong cu</th>
+          <th scope="col">Ngày vào làm</th>
+          <th scope="col" class="text-center">Công cụ</th>
         </tr>
       </thead>
       <tbody>
@@ -131,21 +131,21 @@
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Họ tên:</label>
-            <input type="text" class="form-control" id="add-name"></input>
+            <input type="text" class="form-control" id="NV-name"></input>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">SDT:</label>
-            <input type="text" class="form-control" id="add-phone"></input>
+            <input type="text" class="form-control" id="NV-phone"></input>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Ngày vào làm:</label>
-            <input type="date" class="form-control" id="add-birth"></input>
+            <input type="date" class="form-control" id="NV-ngvl"></input>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-        <button type="button" onclick="addKH()" class="btn btn-primary">Thêm</button>
+        <button type="button" onclick="addNV()" class="btn btn-primary">Thêm</button>
       </div>
     </div>
   </div>
@@ -160,6 +160,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>

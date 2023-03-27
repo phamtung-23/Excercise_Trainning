@@ -17,13 +17,16 @@ function getID(employee) {
       emp:employee
     },
     success:(data, status)=>{
-      
-      var userId = JSON.parse(data);
-      var numberID = parseInt(userId.MAKH.slice(2))+1
       if (employee == 'KH'){
+        console.log(data)
+        var userId = JSON.parse(data);
+        var numberID = parseInt(userId.MAKH.slice(2))+1
         var newId = 'KH' + numberID.toString();
         $('#add-id').val(newId);
       }else if (employee == 'NV'){
+        console.log(data)
+        var userId = JSON.parse(data);
+        var numberID = parseInt(userId.MANV.slice(2))+1
         var newId = 'NV' + numberID.toString();
         $('#NV-id').val(newId);
       }
@@ -40,7 +43,7 @@ function getID(employee) {
     var newNgDK = $('#add-DK').val();
     var newDS = $('#add-DS').val();
     var newLoaiKH = $('#add-typeKH').val();
-
+    var dispatch = 'KH';
     // console.log(newLoaiKH);
     $.ajax({
       type: "post",
@@ -54,6 +57,7 @@ function getID(employee) {
         ngayDK:newNgDK,
         doanhSo:newDS,
         typeKH:newLoaiKH,
+        dispatch:dispatch
       },
       success: (data, status) =>{
         if(status=='success'){
@@ -205,3 +209,48 @@ $(document).on("click", ".btnAddNV", function () {
   // gọi hàm tạo MAKH tự động tăng, để không bị trùng khi thêm mới
   getID('NV');
 });
+
+function addNV(){
+  var newID = $('#NV-id').val();
+  var newName = $('#NV-name').val();
+  var newSDT = $('#NV-phone').val();
+  var newNgVL = $('#NV-ngvl').val();
+
+  var dispatch = 'NV';
+
+  // console.log(newLoaiKH);
+  $.ajax({
+    type: "post",
+    url: "./api/insert.php",
+    data: {
+      id:newID,
+      name:newName,
+      sdt:newSDT,
+      ngayVL:newNgVL,
+      dispatch: dispatch
+     
+    },
+    success: (data) =>{
+      var res = JSON.parse(data)
+      if(res.status==true){
+        Swal.fire({
+                  position:top,
+                  icon: 'success',
+                  title: res.mes,
+                  showConfirmButton: false,
+                  timer: 1500
+                }).then(()=>{
+                  location.reload();
+                })
+      }else{
+        Swal.fire({
+                  position:top,
+                  icon: 'error',
+                  title: res.mes,
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+      }
+    }
+  })
+}
