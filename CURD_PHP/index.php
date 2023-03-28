@@ -235,7 +235,7 @@
         </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-danger" onclick="deleteKH()">Xác nhận</button>
+        <button type="button" class="btn btn-danger" onclick="deleteID('KH')">Xác nhận</button>
       </div>
     </div>
   </div>

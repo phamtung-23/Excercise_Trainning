@@ -44,6 +44,50 @@
       }
 
     }
+  }else if($_POST['dispatch'] == 'SP'){
+    if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['dvt']) && isset($_POST['gia'])&& isset($_POST['nuocSX'])){
+      $newID = $_POST['id'];
+      $newName = $_POST['name'];
+      $newDVT = $_POST['dvt'];
+      $newNuocSX = $_POST['nuocSX'];
+      $newGia = $_POST['gia'];
+
+      $sql = "insert into SANPHAM values (?,?,?,?,?)";
+      $stm = $conn -> prepare($sql);
+      $stm -> bind_param("sssss", $newID,$newName,$newDVT,$newNuocSX, $newGia);
+      if (!$stm -> execute()) {
+        $res["status"] = false;
+        $res["mes"] = "Something wrong!";
+        echo json_encode($res);
+      }else{
+        $res["status"] = true;
+        $res["mes"] = "Add successful!";
+        echo json_encode($res);
+      }
+
+    }
+  }else if($_POST['dispatch'] == 'HD'){
+    if (isset($_POST['SOHD']) && isset($_POST['NGHD']) && isset($_POST['MAKH']) && isset($_POST['MANV'])&& isset($_POST['gia'])){
+      $SOHD = $_POST['SOHD'];
+      $NGHD = $_POST['NGHD'];
+      $MAKH = $_POST['MAKH'];
+      $MANV = $_POST['MANV'];
+      $gia = $_POST['gia'];
+
+      $sql = "insert into HOADON values (?,?,?,?,?)";
+      $stm = $conn -> prepare($sql);
+      $stm -> bind_param("sssss", $SOHD,$NGHD,$MAKH,$MANV,$gia);
+      if (!$stm -> execute()) {
+        $res["status"] = false;
+        $res["mes"] = "Something wrong!";
+        echo json_encode($res);
+      }else{
+        $res["status"] = true;
+        $res["mes"] = "Add successful!";
+        echo json_encode($res);
+      }
+
+    }
   }
   
 ?>

@@ -98,8 +98,8 @@
                     <td><?= $row['SODT']?></td>
                     <td><?= $row['NGVL']?></td>
                     <td class="d-flex justify-content-center">
-                      <button class="btn btn-primary mr-3"><i class="fas fa-edit pr-2"></i> sửa</button>
-                      <button class="btn btn-danger"><i class="fas fa-trash-alt pr-2"></i> xóa</button>
+                      <button class="btn btn-primary mr-3 btnEditNV" data-toggle="modal" data-target="#editModalNV" data-id=<?= $row['MANV']?>><i class="fas fa-edit pr-2"></i> sửa</button>
+                      <button class="btn btn-danger btnDeleteNV" data-toggle="modal" data-target="#deleteModalNV" data-id=<?= $row['MANV']?>><i class="fas fa-trash-alt pr-2"></i> xóa</button>
                     </td>
                   </tr>
                 <?php
@@ -151,6 +151,67 @@
   </div>
 </div>
 
+<!-- model edit  -->
+<div class="modal fade" id="editModalNV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin nhân viên</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Mã Nhân viên:</label>
+            <input type="text" class="form-control" disabled id="editNV-id">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Họ tên:</label>
+            <input type="text" class="form-control" id="editNV-name"></input>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">SDT:</label>
+            <input type="text" class="form-control" id="editNV-phone"></input>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Ngày vào làm:</label>
+            <input type="date" class="form-control" id="editNV-ngvl"></input>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" onclick="updateNV()" class="btn btn-primary">Cập nhật</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- model delete -->
+<div class="modal fade" id="deleteModalNV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xóa?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nhân viên có mã:</label>
+            <input type="text" id="input_manv" class="form-control" disabled>
+          </div>
+        </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-danger" onclick="deleteID('NV')">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
   </script>
